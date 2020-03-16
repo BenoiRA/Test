@@ -6,4 +6,4 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - run: touch file1.txt
+      - run: touch /Test/file1.txt
