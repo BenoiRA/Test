@@ -19,6 +19,4 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       - uses: montudor/action-zip@v0.1.0
-         with:
-           args: unzip -qq ./app.zip
+      - run:unzip app.zip
