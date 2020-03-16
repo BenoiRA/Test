@@ -1,9 +1,0 @@
-name: Continuous Integration
-on:
-  push:
-  pull_request:
-jobs:
-  Test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: touch /Test/file1.txt
