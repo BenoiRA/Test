@@ -16,11 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/download-artifact@master
-        with:
-          name: vendor
-          path: vendor-zip
       - uses: montudor/action-zip@v0.1.0
         with:
           args: unzip -qq ./Test/app.zip -d ./Test
