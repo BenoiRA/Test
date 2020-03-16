@@ -6,4 +6,4 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir vendor-zip
+      - run: touch file1.txt
