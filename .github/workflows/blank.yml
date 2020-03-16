@@ -21,4 +21,4 @@ jobs:
     steps:
        - uses: montudor/action-zip@v0.1.0
          with:
-           args: unzip -qq app.zip
+           args: unzip -qq ./app.zip
