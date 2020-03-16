@@ -1,22 +1,46 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
+name: Continuous Integration
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  composer-install:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+      - run: composer install --ansi --no-progress --no-interaction --prefer-dist
+      - run: mkdir vendor-zip
       - uses: montudor/action-zip@v0.1.0
         with:
-          args: unzip -qq ./Test/app.zip -d ./Test
-      - run: rm ./Test/app.zip
+          args: zip -qq -r ./vendor-zip/vendor.zip ./vendor
+      - uses: actions/upload-artifact@master
+        with:
+          name: vendor
+          path: vendor-zip
+  tests:
+    needs: composer-install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@master
+        with:
+          name: vendor
+          path: vendor-zip
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq ./vendor-zip/vendor.zip -d ./vendor
+      - run: rm -Rf ./vendor-zip
+      - run: ./vendor/bin/phpunit
+  mutation:
+    needs: composer-install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@master
+        with:
+          name: vendor
+          path: vendor-zip
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq ./vendor-zip/vendor.zip -d ./vendor
+      - run: rm -Rf ./vendor-zip
+      - run: ./vendor/bin/infection
