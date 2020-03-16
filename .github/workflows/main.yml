@@ -19,4 +19,4 @@ jobs:
       - uses: montudor/action-zip@v0.1.0
         with:
           args: unzip -qq ./Test/app.zip -d ./Test
-      - run: rm -Rf ./Test/app.zip
+      - run: rm ./Test/app.zip
