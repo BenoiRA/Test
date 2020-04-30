@@ -12,9 +12,9 @@ sample code for using report library is given below
 Let's get started
 =================
 
-One of the important benefits of this lib is that you don't need to initialize object completely before getting any reports.
+To get report of stack trace just initialize the  code in your application.java or activity.java
 ```java
    Thread.setDefaultUncaughtException(new Reporter(this,ExceptionListener));
 ```
-
+Enjoy find errors without computers
 
